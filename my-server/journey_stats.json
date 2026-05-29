@@ -1,0 +1,140 @@
+{
+  "funnel": [
+    {
+      "stage": "Impression",
+      "count": 16468027,
+      "percentage": 100,
+      "dropOff": 0
+    },
+    {
+      "stage": "Click",
+      "count": 5947563,
+      "percentage": 36.12,
+      "dropOff": 63.88
+    },
+    {
+      "stage": "Conversion",
+      "count": 806196,
+      "percentage": 4.89,
+      "dropOff": 86.44
+    },
+    {
+      "stage": "Attributed Conversion",
+      "count": 442424,
+      "percentage": 2.69,
+      "dropOff": 45.12
+    }
+  ],
+  "journeyTypes": [
+    {
+      "type": "Impression-only",
+      "count": 10520464,
+      "percentage": 63.88,
+      "color": "#3b82f6",
+      "description": "User saw the ad but did not interact."
+    },
+    {
+      "type": "Click-only",
+      "count": 5141367,
+      "percentage": 31.22,
+      "color": "#eab308",
+      "description": "User clicked the ad but did not purchase."
+    },
+    {
+      "type": "Unattributed Conversion",
+      "count": 363772,
+      "percentage": 2.21,
+      "color": "#ec4899",
+      "description": "User clicked and converted, but marketing attribution rules did not credit this specific ad."
+    },
+    {
+      "type": "Attributed Conversion",
+      "count": 442424,
+      "percentage": 2.69,
+      "color": "#10b981",
+      "description": "User clicked and converted, successfully attributed to this ad."
+    }
+  ],
+  "journeyDepthGroups": [
+    {
+      "depth": "1st Click",
+      "conversions": 260774,
+      "percentage": 32.35,
+      "description": "Single-touchpoint conversions (Immediate purchase)."
+    },
+    {
+      "depth": "2nd Click",
+      "conversions": 132519,
+      "percentage": 16.44,
+      "description": "Two-touchpoints conversions (Quick consideration)."
+    },
+    {
+      "depth": "3rd Click",
+      "conversions": 84482,
+      "percentage": 10.48,
+      "description": "Three-touchpoints conversions."
+    },
+    {
+      "depth": "4th Click",
+      "conversions": 58522,
+      "percentage": 7.26,
+      "description": "Four-touchpoints conversions."
+    },
+    {
+      "depth": "5th Click",
+      "conversions": 42825,
+      "percentage": 5.31,
+      "description": "Five-touchpoints conversions."
+    },
+    {
+      "depth": "6-9 Clicks",
+      "conversions": 99843,
+      "percentage": 12.38,
+      "description": "Mid-funnel consideration conversions."
+    },
+    {
+      "depth": "10+ Clicks",
+      "conversions": 127231,
+      "percentage": 15.78,
+      "description": "High-touchpoint conversions (Long-term consideration)."
+    }
+  ],
+  "timeSinceLastClick": [
+    {
+      "interval": "First Click (No prior)",
+      "count": 8770820,
+      "conversions": 244391,
+      "rate": 2.78
+    },
+    {
+      "interval": "0 - 60 seconds",
+      "count": 152194,
+      "conversions": 19213,
+      "rate": 12.62
+    },
+    {
+      "interval": "1 min - 1 hour",
+      "count": 737989,
+      "conversions": 88756,
+      "rate": 12.02
+    },
+    {
+      "interval": "1 hour - 1 day",
+      "count": 1131306,
+      "conversions": 122760,
+      "rate": 10.85
+    },
+    {
+      "interval": "1 day - 1 week",
+      "count": 3005473,
+      "conversions": 216222,
+      "rate": 7.19
+    },
+    {
+      "interval": "1 week+",
+      "count": 2670245,
+      "conversions": 114854,
+      "rate": 4.3
+    }
+  ]
+}

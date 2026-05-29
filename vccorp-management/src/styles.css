@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Premium Corporate Light Color Palette */
+  --bg-primary: #F8FAFC;       /* Soft light blue-slate */
+  --bg-secondary: #FFFFFF;     /* Pure white cards */
+  --bg-tertiary: #F1F5F9;      /* Light gray sections */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(226, 232, 240, 0.9);
+  
+  --primary: #4F46E5;       /* Royal Indigo */
+  --primary-glow: rgba(79, 70, 229, 0.08);
+  --secondary: #0891B2;     /* Corporate Cyan */
+  --secondary-glow: rgba(8, 145, 178, 0.08);
+  --success: #059669;       /* Emerald Green */
+  --success-glow: rgba(5, 150, 105, 0.08);
+  --warning: #D97706;       /* Warm Amber */
+  --warning-glow: rgba(217, 119, 6, 0.08);
+  --danger: #DC2626;        /* Crimson Red */
+  --danger-glow: rgba(220, 38, 38, 0.08);
+  --accent-pink: #DB2777;   /* Deep Slate Pink */
+  
+  --text-primary: #0F172A;     /* Deep slate text for readability */
+  --text-secondary: #475569;   /* Slate gray text */
+  --text-muted: #64748B;       /* Muted blue gray text */
+  
+  /* Gradients */
+  --grad-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  --grad-purple: linear-gradient(135deg, #818CF8 0%, #4F46E5 100%);
+  --grad-cyan: linear-gradient(135deg, #22D3EE 0%, #0891B2 100%);
+  --grad-green: linear-gradient(135deg, #34D399 0%, #059669 100%);
+  --grad-pink: linear-gradient(135deg, #F472B6 0%, #DB2777 100%);
+  
+  /* Animations */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s ease-out;
+
+  /* Typography */
+  --font-headings: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  height: 100vh;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-tertiary);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Premium Panel Utility */
+.glass-panel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: rgba(79, 70, 229, 0.15);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+/* Modern Card Titles */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.panel-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-top: 4px;
+}
+
+/* Glass Buttons */
+.btn-glass {
+  background: #FFFFFF;
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.btn-glass:hover {
+  background: var(--bg-primary);
+  color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 12px var(--primary-glow);
+  transform: translateY(-1px);
+}
+
+.btn-glass.active {
+  background: var(--grad-primary);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+/* Dropdowns, Inputs */
+.input-glass {
+  background: #FFFFFF;
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: var(--transition-smooth);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.input-glass:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  background: #FFFFFF;
+}
+
+.glass-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.glass-table th {
+  background: #F8FAFC;
+  padding: 14px 18px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.glass-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  transition: var(--transition-fast);
+}
+
+.glass-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.glass-table tbody tr:hover td {
+  background: var(--bg-primary);
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-primary { background: var(--primary-glow); color: var(--primary); border: 1px solid rgba(79, 70, 229, 0.15); }
+.badge-secondary { background: var(--secondary-glow); color: var(--secondary); border: 1px solid rgba(8, 145, 178, 0.15); }
+.badge-success { background: var(--success-glow); color: var(--success); border: 1px solid rgba(5, 150, 105, 0.15); }
+.badge-warning { background: var(--warning-glow); color: var(--warning); border: 1px solid rgba(217, 119, 6, 0.15); }
+.badge-danger { background: var(--danger-glow); color: var(--danger); border: 1px solid rgba(220, 38, 38, 0.15); }
+
+/* Animation Utility */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animated-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

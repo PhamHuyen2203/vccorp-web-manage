@@ -1,0 +1,103 @@
+<div class="admin-shell">
+  <!-- Left Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo">
+        <img src="favicon.png" alt="Logo" class="brand-logo-img" />
+      </div>
+      <div class="brand-text">
+        <h2>VCCorp</h2>
+        <span>ADS MANAGEMENT</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/overview" routerLinkActive="active" class="nav-item">
+        <div class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="9"></rect>
+            <rect x="14" y="3" width="7" height="5"></rect>
+            <rect x="14" y="12" width="7" height="9"></rect>
+            <rect x="3" y="16" width="7" height="5"></rect>
+          </svg>
+        </div>
+        <span>Overview Dashboard</span>
+      </a>
+
+      <a routerLink="/campaigns" routerLinkActive="active" class="nav-item">
+        <div class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <span>Campaign Performance</span>
+      </a>
+
+      <a routerLink="/journey" routerLinkActive="active" class="nav-item">
+        <div class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4v16h16"></path>
+            <circle cx="12" cy="14" r="3"></circle>
+            <path d="M20 9l-5 5-4-4-3 3"></path>
+          </svg>
+        </div>
+        <span>Customer Journey & Funnel</span>
+      </a>
+
+      <a routerLink="/prediction" routerLinkActive="active" class="nav-item">
+        <div class="nav-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </div>
+        <span>ML CVR Prediction</span>
+      </a>
+    </nav>
+
+
+  </aside>
+
+  <!-- Right Workspace -->
+  <div class="workspace">
+    <!-- Top Header -->
+    <header class="workspace-header">
+      <div class="header-left">
+        <div class="system-time-pill">
+          <svg class="header-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span class="system-time">2026-05-27 12:16:04 (ICT)</span>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <!-- Live Connection Pill -->
+        <div class="status-indicator success-pill">
+          <span class="status-ping"></span>
+          <span class="status-text">MongoDB Live Connected (16,468,027 Events)</span>
+        </div>
+        <div class="header-divider"></div>
+        <div class="profile-card">
+          <div class="profile-avatar-wrapper">
+            <img src="favicon.png" alt="Avatar" class="profile-avatar-img" />
+            <span class="active-badge"></span>
+          </div>
+          <div class="profile-info">
+            <span class="profile-name">VCCorp Manager</span>
+            <span class="profile-role">Analytics Administrator</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dynamic Route Work Area -->
+    <main class="workspace-body">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

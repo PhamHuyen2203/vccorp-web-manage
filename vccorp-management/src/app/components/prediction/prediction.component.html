@@ -1,0 +1,454 @@
+<div class="prediction-container animated-fade-in">
+  <!-- Loading and Error Overlays -->
+  <div *ngIf="loading()" class="loading-overlay">
+    <div class="loader"></div>
+    <p>Synthesizing neural features and probability rankings...</p>
+  </div>
+
+  <div *ngIf="error()" class="error-panel">
+    <div class="error-icon">⚠️</div>
+    <h3>Connection Error</h3>
+    <p>{{ error() }}</p>
+  </div>
+
+  <div *ngIf="!loading() && !error()">
+    <!-- Header -->
+    <div class="dashboard-header">
+      <div>
+        <h1 class="page-title">Conversion Prediction Dashboard</h1>
+        <p class="page-desc">Leverage Logistic Regression machine learning predictions to estimate individual conversion probabilities and bid thresholds.</p>
+      </div>
+    </div>
+
+    <!-- Top Grid: Model Metrics & Curves -->
+    <div class="prediction-top-grid">
+      <!-- Performance Metrics Panel -->
+      <div class="glass-panel model-stats-card">
+        <h3 class="panel-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px; color: var(--primary);">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          Selected Model: {{ modelSelected() }}
+        </h3>
+        <p class="panel-subtitle">Trained on an 18% user-based sample using uid modulo arithmetic, stratified for class imbalance.</p>
+
+        <!-- Metric Grid -->
+        <div class="metrics-grid">
+          <div class="metric-box border-violet">
+            <span class="m-label">Accuracy</span>
+            <div class="m-val">{{ (performance()?.accuracy || 0) * 100 | number:'1.1-1' }}%</div>
+            <span class="m-sub">Overall correct predictions</span>
+          </div>
+
+          <div class="metric-box border-cyan">
+            <span class="m-label">Precision</span>
+            <div class="m-val">{{ (performance()?.precision || 0) * 100 | number:'1.1-1' }}%</div>
+            <span class="m-sub">True convert / Total predicted</span>
+          </div>
+
+          <div class="metric-box border-pink">
+            <span class="m-label">Recall</span>
+            <div class="m-val">{{ (performance()?.recall || 0) * 100 | number:'1.1-1' }}%</div>
+            <span class="m-sub">Conversions successfully captured</span>
+          </div>
+
+          <div class="metric-box border-green">
+            <span class="m-label">F1-Score</span>
+            <div class="m-val">{{ (performance()?.f1_score || 0) * 100 | number:'1.1-1' }}%</div>
+            <span class="m-sub">Balanced harmonic mean</span>
+          </div>
+        </div>
+
+        <div class="auc-scores-bar">
+          <div class="auc-item">ROC-AUC: <strong>{{ performance()?.roc_auc | number:'1.3-3' }}</strong></div>
+          <div class="auc-item">PR-AUC: <strong>{{ performance()?.pr_auc | number:'1.3-3' }}</strong></div>
+        </div>
+      </div>
+
+      <!-- Tabbed Curves Plotter -->
+      <div class="glass-panel curve-panel">
+        <div class="panel-header">
+          <div>
+            <h3 class="panel-title">Model Performance Curves</h3>
+            <p class="panel-subtitle">Visualize classification quality across all decision thresholds.</p>
+          </div>
+          <!-- Tab Switcher -->
+          <div class="curve-tabs">
+            <button class="tab-btn" [class.active]="activeTab() === 'ROC'" (click)="activeTab.set('ROC')">ROC Curve</button>
+            <button class="tab-btn" [class.active]="activeTab() === 'PR'" (click)="activeTab.set('PR')">PR Curve</button>
+          </div>
+        </div>
+
+        <div class="chart-wrapper">
+          <!-- ROC Curve -->
+          <svg *ngIf="activeTab() === 'ROC'" [attr.viewBox]="'0 0 ' + curveChartWidth + ' ' + curveChartHeight" class="svg-chart">
+            <line x1="45" y1="45" x2="455" y2="45" stroke="rgba(0,0,0,0.03)" />
+            <line x1="45" y1="112.5" x2="455" y2="112.5" stroke="rgba(0,0,0,0.03)" />
+            <line x1="45" y1="180" x2="455" y2="180" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+            
+            <line x1="45" y1="45" x2="45" y2="180" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+            <line x1="250" y1="45" x2="250" y2="180" stroke="rgba(0,0,0,0.03)" />
+            <line x1="455" y1="45" x2="455" y2="180" stroke="rgba(0,0,0,0.03)" />
+
+            <!-- Diagonal baseline -->
+            <line x1="45" y1="180" x2="455" y2="45" stroke="rgba(0,0,0,0.12)" stroke-dasharray="4,4" />
+
+            <text x="250" y="208" fill="var(--text-secondary)" font-size="9" text-anchor="middle">False Positive Rate (FPR)</text>
+            <text x="15" y="112.5" fill="var(--text-secondary)" font-size="9" text-anchor="middle" transform="rotate(-90 15 112.5)">True Positive Rate (TPR)</text>
+
+            <text x="45" y="193" fill="var(--text-muted)" font-size="8" text-anchor="middle">0.0</text>
+            <text x="250" y="193" fill="var(--text-muted)" font-size="8" text-anchor="middle">0.5</text>
+            <text x="455" y="193" fill="var(--text-muted)" font-size="8" text-anchor="middle">1.0</text>
+
+            <text x="37" y="183" fill="var(--text-muted)" font-size="8" text-anchor="end">0.0</text>
+            <text x="37" y="115.5" fill="var(--text-muted)" font-size="8" text-anchor="end">0.5</text>
+            <text x="37" y="48" fill="var(--text-muted)" font-size="8" text-anchor="end">1.0</text>
+
+            <defs>
+              <linearGradient id="rocAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.0"/>
+              </linearGradient>
+            </defs>
+            <path [attr.d]="rocAreaPath()" fill="url(#rocAreaGrad)" />
+            <path [attr.d]="rocPath()" fill="none" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" />
+            
+            <text x="350" y="150" fill="var(--primary)" font-size="10" font-weight="700">AUC = {{ performance()?.roc_auc | number:'1.3-3' }}</text>
+          </svg>
+
+          <!-- Precision-Recall Curve -->
+          <svg *ngIf="activeTab() === 'PR'" [attr.viewBox]="'0 0 ' + curveChartWidth + ' ' + curveChartHeight" class="svg-chart">
+            <line x1="45" y1="45" x2="455" y2="45" stroke="rgba(0,0,0,0.03)" />
+            <line x1="45" y1="112.5" x2="455" y2="112.5" stroke="rgba(0,0,0,0.03)" />
+            <line x1="45" y1="180" x2="455" y2="180" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+            
+            <line x1="45" y1="45" x2="45" y2="180" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+            <line x1="250" y1="45" x2="250" y2="180" stroke="rgba(0,0,0,0.03)" />
+            <line x1="455" y1="45" x2="455" y2="180" stroke="rgba(0,0,0,0.03)" />
+
+            <text x="250" y="208" fill="var(--text-secondary)" font-size="9" text-anchor="middle">Recall (TPR)</text>
+            <text x="15" y="112.5" fill="var(--text-secondary)" font-size="9" text-anchor="middle" transform="rotate(-90 15 112.5)">Precision</text>
+
+            <text x="45" y="193" fill="var(--text-muted)" font-size="8" text-anchor="middle">0.0</text>
+            <text x="250" y="193" fill="var(--text-muted)" font-size="8" text-anchor="middle">0.5</text>
+            <text x="455" y="193" fill="var(--text-muted)" font-size="8" text-anchor="middle">1.0</text>
+
+            <text x="37" y="183" fill="var(--text-muted)" font-size="8" text-anchor="end">0.0</text>
+            <text x="37" y="115.5" fill="var(--text-muted)" font-size="8" text-anchor="end">0.5</text>
+            <text x="37" y="48" fill="var(--text-muted)" font-size="8" text-anchor="end">1.0</text>
+
+            <defs>
+              <linearGradient id="prAreaGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="var(--secondary)" stop-opacity="0.15"/>
+                <stop offset="100%" stop-color="var(--secondary)" stop-opacity="0.0"/>
+              </linearGradient>
+            </defs>
+            <path [attr.d]="prAreaPath()" fill="url(#prAreaGrad)" />
+            <path [attr.d]="prPath()" fill="none" stroke="var(--secondary)" stroke-width="2.5" stroke-linecap="round" />
+            
+            <text x="350" y="70" fill="var(--secondary)" font-size="10" font-weight="700">PR-AUC = {{ performance()?.pr_auc | number:'1.3-3' }}</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- NEW ROW: Confusion Matrix & Feature Importance Grid -->
+    <div class="prediction-mid-grid">
+      <!-- Feature Importance horizontal bars -->
+      <div class="glass-panel features-panel">
+        <h3 class="panel-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; color: var(--primary);">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+          ML Feature Importance Profile
+        </h3>
+        <p class="panel-subtitle">Influence coefficients of engineered variables in mapping conversion probability. Green denotes encoders; red denotes inhibitors.</p>
+
+        <div class="features-list">
+          <div *ngFor="let item of featureImportances(); let i = index" 
+               class="feature-item"
+               [class.active]="hoveredFeatureIndex() === i"
+               (mouseenter)="hoveredFeatureIndex.set(i)"
+               (mouseleave)="hoveredFeatureIndex.set(null)">
+            <div class="feature-item-header">
+              <span class="feature-name">{{ item.feature }}</span>
+              <span class="feature-weight" [style.color]="item.color">
+                {{ item.type === 'positive' ? '+' : '-' }}{{ item.importance | number:'1.2-2' }}
+              </span>
+            </div>
+            <div class="feature-progress-wrapper">
+              <div class="feature-progress-bar" 
+                   [style.width.%]="(item.importance / 2.85) * 100"
+                   [style.background-color]="item.color"></div>
+            </div>
+            <p class="feature-item-desc" *ngIf="hoveredFeatureIndex() === i">
+              {{ item.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confusion Matrix 2x2 Grid -->
+      <div class="glass-panel confusion-panel">
+        <h3 class="panel-title">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; color: var(--accent-pink);">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="3" x2="9" y2="21"></line>
+            <line x1="15" y1="3" x2="15" y2="21"></line>
+            <line x1="3" y1="9" x2="21" y2="9"></line>
+            <line x1="3" y1="15" x2="21" y2="15"></line>
+          </svg>
+          Model Confusion Matrix Grid
+        </h3>
+        <p class="panel-subtitle">Statistical breakdown of the model's actual vs. predicted classifications over the 60,000 test events.</p>
+
+        <div class="matrix-wrapper">
+          <!-- Column Labels -->
+          <div class="matrix-column-labels">
+            <span class="axis-label-main text-center">Predicted Class</span>
+            <div class="col-labels-row">
+              <span class="label-sub">Negative (No)</span>
+              <span class="label-sub">Positive (Convert)</span>
+            </div>
+          </div>
+
+          <div class="matrix-row-container">
+            <!-- Row Labels -->
+            <div class="matrix-row-labels">
+              <span class="axis-label-vertical">Actual Class</span>
+              <div class="row-labels-col">
+                <span class="label-sub">No</span>
+                <span class="label-sub">Convert</span>
+              </div>
+            </div>
+
+            <!-- 2x2 Grid Cells -->
+            <div class="matrix-grid-cells">
+              <!-- True Negative -->
+              <div class="matrix-cell cell-tn">
+                <span class="cell-count">{{ formatNumber(confusionMatrix().tn) }}</span>
+                <span class="cell-name">True Negative (TN)</span>
+                <span class="cell-ratio">63.5%</span>
+              </div>
+              
+              <!-- False Positive -->
+              <div class="matrix-cell cell-fp">
+                <span class="cell-count">{{ formatNumber(confusionMatrix().fp) }}</span>
+                <span class="cell-name">False Positive (FP)</span>
+                <span class="cell-ratio">31.6%</span>
+              </div>
+              
+              <!-- False Negative -->
+              <div class="matrix-cell cell-fn">
+                <span class="cell-count">{{ formatNumber(confusionMatrix().fn) }}</span>
+                <span class="cell-name">False Negative (FN)</span>
+                <span class="cell-ratio">0.0%</span>
+              </div>
+              
+              <!-- True Positive -->
+              <div class="matrix-cell cell-tp">
+                <span class="cell-count">{{ formatNumber(confusionMatrix().tp) }}</span>
+                <span class="cell-name">True Positive (TP)</span>
+                <span class="cell-ratio">4.9%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Targeting Priority Cohort Cards (Page 4 High/Medium/Low groups & priorities) -->
+    <div class="cohorts-section">
+      <h3 class="section-title">Cohort Targeting Prioritization</h3>
+      <p class="section-desc">Actionable bidding priorities recommended by conversion probability grouping.</p>
+      
+      <div class="cohorts-grid">
+        <div *ngFor="let cohort of probabilityGroups(); let idx = index" 
+             class="glass-panel cohort-card"
+             [ngClass]="{
+               'border-red': cohort.group.includes('Low'),
+               'border-yellow': cohort.group.includes('Medium'),
+               'border-green': cohort.group.includes('High')
+             }">
+          <div class="cohort-header">
+            <div>
+              <span class="cohort-badge" [ngClass]="{
+                'badge-danger': cohort.group.includes('Low'),
+                'badge-warning': cohort.group.includes('Medium'),
+                'badge-success': cohort.group.includes('High')
+              }">
+                {{ cohort.group.includes('Low') ? 'Priority 3 (Exclude)' : (cohort.group.includes('Medium') ? 'Priority 2 (Nurture)' : 'Priority 1 (Target)') }}
+              </span>
+              <h4>{{ cohort.group }}</h4>
+            </div>
+            <div class="cohort-count">{{ formatNumber(cohort.count) }} users</div>
+          </div>
+          <p class="cohort-desc">{{ cohort.description }}</p>
+
+          <div class="cohort-strategy-box">
+            <h5>Recommended Strategy:</h5>
+            <p *ngIf="cohort.group.includes('Low')">
+              <strong>Action:</strong> Low bids or blacklists.<br/>
+              <strong>Rationale:</strong> Conversions are highly unlikely. Save advertising budget by blacklisting or placing micro-bids on this tier.
+            </p>
+            <p *ngIf="cohort.group.includes('Medium')">
+              <strong>Action:</strong> Standard retargeting.<br/>
+              <strong>Rationale:</strong> Users have moderate intent. Target them on social & search networks using standard bids to guide them down the funnel.
+            </p>
+            <p *ngIf="cohort.group.includes('High')">
+              <strong>Action:</strong> Aggressive bids & multipliers.<br/>
+              <strong>Rationale:</strong> Highest conversion probability! Boost bidding multipliers (+50% to +100%) to guarantee maximum impression share and conversions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row: Decile Distribution & Model Comparisons -->
+    <div class="prediction-bottom-grid">
+      <!-- Probability Decile Distribution (SVG Histogram) -->
+      <div class="glass-panel hist-panel">
+        <h3 class="panel-title">Conversion Probability Density</h3>
+        <p class="panel-subtitle">The counts of users binned by predicted conversion probability deciles.</p>
+
+        <div class="chart-wrapper">
+          <svg [attr.viewBox]="'0 0 ' + histChartWidth + ' ' + histChartHeight" class="svg-chart">
+            <line x1="40" y1="40" x2="460" y2="40" stroke="rgba(0,0,0,0.03)" />
+            <line x1="40" y1="110" x2="460" y2="110" stroke="rgba(0,0,0,0.03)" />
+            <line x1="40" y1="180" x2="460" y2="180" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+
+            <!-- Y Labels -->
+            <text x="15" y="45" fill="var(--text-muted)" font-size="9">{{ (maxHistCount() / 1000) | number:'1.0-0' }}K</text>
+            <text x="15" y="115" fill="var(--text-muted)" font-size="9">{{ (maxHistCount() / 2000) | number:'1.0-0' }}K</text>
+            <text x="15" y="185" fill="var(--text-muted)" font-size="9">0</text>
+
+            <!-- Bars -->
+            <g *ngFor="let bar of histBars()">
+              <!-- Hover trigger -->
+              <rect [attr.x]="bar.x - 2" [attr.y]="40" [attr.width]="bar.width + 4" height="140" fill="transparent" style="cursor: pointer;"
+                    (mouseenter)="hoveredBinIndex.set(bar.index)"
+                    (mouseleave)="hoveredBinIndex.set(null)" />
+
+              <!-- Bar rect -->
+              <rect [attr.x]="bar.x" 
+                    [attr.y]="bar.y" 
+                    [attr.width]="bar.width" 
+                    [attr.height]="bar.height" 
+                    [attr.fill]="hoveredBinIndex() === bar.index ? 'var(--pink)' : 'rgba(236, 72, 153, 0.45)'"
+                    [attr.stroke]="hoveredBinIndex() === bar.index ? 'var(--text-primary)' : 'none'"
+                    stroke-width="1"
+                    rx="1.5"
+                    style="transition: var(--transition-fast);" />
+            </g>
+
+            <!-- X Labels -->
+            <g *ngFor="let bar of histBars(); let i = index">
+              <!-- Show every second label to avoid clutter -->
+              <text *ngIf="i % 2 === 0" [attr.x]="bar.x + bar.width/2" y="200" fill="var(--text-secondary)" font-size="8" text-anchor="middle">{{ bar.record.bin }}</text>
+            </g>
+          </svg>
+
+          <!-- Interactive Tooltip Overlay -->
+          <div *ngIf="hoveredBinIndex() !== null && histBars()[hoveredBinIndex()!] as bar" 
+               class="chart-tooltip"
+               [style.left.px]="(bar.x / 500) * 380 + 60"
+               [style.top.px]="bar.y - 85">
+            <div class="tooltip-header">Decile: {{ bar.record.bin }}</div>
+            <div class="tooltip-body">
+              <div class="tooltip-row">
+                <span class="dot pink"></span>
+                <span>User Count: <strong>{{ formatNumber(bar.record.count) }}</strong></span>
+              </div>
+              <div class="tooltip-row">
+                <span class="dot grey"></span>
+                <span>Share: <strong>{{ (bar.record.count / 60000 * 100) | number:'1.2-2' }}%</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Classifiers Comparison Bar Chart & Table -->
+      <div class="glass-panel comparison-panel">
+        <h3 class="panel-title">Model Comparison Matrix</h3>
+        <p class="panel-subtitle">Benchmarking Logistic Regression against Decision Trees and Naive Bayes Classifiers.</p>
+
+        <div class="chart-wrapper">
+          <svg [attr.viewBox]="'0 0 ' + compChartWidth + ' ' + compChartHeight" class="svg-chart">
+            <line x1="40" y1="40" x2="460" y2="40" stroke="rgba(0,0,0,0.03)" />
+            <line x1="40" y1="110" x2="460" y2="110" stroke="rgba(0,0,0,0.03)" />
+            <line x1="40" y1="180" x2="460" y2="180" stroke="rgba(0,0,0,0.08)" stroke-width="1.5" />
+
+            <!-- Y Labels -->
+            <text x="15" y="45" fill="var(--text-muted)" font-size="9">100%</text>
+            <text x="15" y="115" fill="var(--text-muted)" font-size="9">50%</text>
+            <text x="15" y="185" fill="var(--text-muted)" font-size="9">0%</text>
+
+            <!-- Grouped Bars -->
+            <g *ngFor="let group of compBars()">
+              <g *ngFor="let bar of group.metrics">
+                <rect [attr.x]="bar.x" 
+                      [attr.y]="bar.y" 
+                      [attr.width]="bar.w" 
+                      [attr.height]="bar.h" 
+                      [attr.fill]="bar.color"
+                      [attr.fill-opacity]="hoveredModelIndex() === group.index ? 0.9 : 0.65"
+                      rx="1.5"
+                      style="transition: var(--transition-fast); cursor: pointer;"
+                      (mouseenter)="hoveredModelIndex.set(group.index)"
+                      (mouseleave)="hoveredModelIndex.set(null)" />
+              </g>
+              <!-- Group Label -->
+              <text [attr.x]="compPadding + group.index*(420/comparisonList().length) + (420/comparisonList().length)/2" 
+                    y="202" 
+                    fill="var(--text-primary)" 
+                    font-size="9" 
+                    text-anchor="middle"
+                    font-weight="600">
+                {{ group.model.replace(' Classifier', '') }}
+              </text>
+            </g>
+          </svg>
+
+          <!-- Group Legend -->
+          <div class="comp-chart-legend">
+            <div class="legend-indicator"><span class="legend-color-dot" style="background-color: #3b82f6;"></span> PR-AUC</div>
+            <div class="legend-indicator"><span class="legend-color-dot" style="background-color: #ec4899;"></span> F1-Score</div>
+            <div class="legend-indicator"><span class="legend-color-dot" style="background-color: #10b981;"></span> ROC-AUC</div>
+          </div>
+        </div>
+
+        <!-- Comparative Grid below -->
+        <div class="table-container shadow-sm mt-3">
+          <table class="glass-table comparison-table">
+            <thead>
+              <tr>
+                <th>Model</th>
+                <th>Precision</th>
+                <th>Recall</th>
+                <th>F1-Score</th>
+                <th>ROC-AUC</th>
+                <th>PR-AUC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of comparisonList(); let i = index" 
+                  [class.row-hover]="hoveredModelIndex() === i"
+                  (mouseenter)="hoveredModelIndex.set(i)"
+                  (mouseleave)="hoveredModelIndex.set(null)">
+                <td><strong>{{ m.model }}</strong></td>
+                <td>{{ m.precision * 100 | number:'1.1-1' }}%</td>
+                <td>{{ m.recall * 100 | number:'1.1-1' }}%</td>
+                <td>{{ m.f1_score * 100 | number:'1.1-1' }}%</td>
+                <td>{{ m.roc_auc | number:'1.3-3' }}</td>
+                <td class="text-cyan"><strong>{{ m.pr_auc | number:'1.3-3' }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

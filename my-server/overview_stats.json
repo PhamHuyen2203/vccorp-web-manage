@@ -1,0 +1,400 @@
+{
+  "summary": {
+    "impressions": 16468027,
+    "clicks": 5947563,
+    "conversions": 806196,
+    "attributedConversions": 442424,
+    "ctr": 36.12,
+    "cvr": 13.56,
+    "attributionRate": 54.88
+  },
+  "dailyTrend": [
+    {
+      "impressions": 572035,
+      "clicks": 199240,
+      "conversions": 28122,
+      "attributions": 15589,
+      "day": 0
+    },
+    {
+      "impressions": 556092,
+      "clicks": 191217,
+      "conversions": 26375,
+      "attributions": 14650,
+      "day": 1
+    },
+    {
+      "impressions": 530015,
+      "clicks": 185646,
+      "conversions": 25366,
+      "attributions": 14044,
+      "day": 2
+    },
+    {
+      "impressions": 498596,
+      "clicks": 178933,
+      "conversions": 23656,
+      "attributions": 12930,
+      "day": 3
+    },
+    {
+      "impressions": 591180,
+      "clicks": 210162,
+      "conversions": 27781,
+      "attributions": 15097,
+      "day": 4
+    },
+    {
+      "impressions": 638165,
+      "clicks": 216961,
+      "conversions": 30166,
+      "attributions": 16358,
+      "day": 5
+    },
+    {
+      "impressions": 580979,
+      "clicks": 200642,
+      "conversions": 27670,
+      "attributions": 15329,
+      "day": 6
+    },
+    {
+      "impressions": 546166,
+      "clicks": 190126,
+      "conversions": 26044,
+      "attributions": 14537,
+      "day": 7
+    },
+    {
+      "impressions": 564794,
+      "clicks": 197149,
+      "conversions": 27177,
+      "attributions": 15041,
+      "day": 8
+    },
+    {
+      "impressions": 500383,
+      "clicks": 179719,
+      "conversions": 25168,
+      "attributions": 13786,
+      "day": 9
+    },
+    {
+      "impressions": 460907,
+      "clicks": 171999,
+      "conversions": 22978,
+      "attributions": 12683,
+      "day": 10
+    },
+    {
+      "impressions": 574411,
+      "clicks": 210192,
+      "conversions": 26714,
+      "attributions": 14766,
+      "day": 11
+    },
+    {
+      "impressions": 609323,
+      "clicks": 212855,
+      "conversions": 29179,
+      "attributions": 15894,
+      "day": 12
+    },
+    {
+      "impressions": 553089,
+      "clicks": 197565,
+      "conversions": 27489,
+      "attributions": 15073,
+      "day": 13
+    },
+    {
+      "impressions": 522063,
+      "clicks": 187481,
+      "conversions": 26127,
+      "attributions": 14379,
+      "day": 14
+    },
+    {
+      "impressions": 505808,
+      "clicks": 184257,
+      "conversions": 26216,
+      "attributions": 14522,
+      "day": 15
+    },
+    {
+      "impressions": 477680,
+      "clicks": 178684,
+      "conversions": 25515,
+      "attributions": 13800,
+      "day": 16
+    },
+    {
+      "impressions": 450258,
+      "clicks": 172509,
+      "conversions": 23509,
+      "attributions": 12605,
+      "day": 17
+    },
+    {
+      "impressions": 538532,
+      "clicks": 204091,
+      "conversions": 26894,
+      "attributions": 14510,
+      "day": 18
+    },
+    {
+      "impressions": 582350,
+      "clicks": 212241,
+      "conversions": 29120,
+      "attributions": 15823,
+      "day": 19
+    },
+    {
+      "impressions": 552965,
+      "clicks": 202913,
+      "conversions": 27852,
+      "attributions": 15394,
+      "day": 20
+    },
+    {
+      "impressions": 562085,
+      "clicks": 205782,
+      "conversions": 28135,
+      "attributions": 15599,
+      "day": 21
+    },
+    {
+      "impressions": 528347,
+      "clicks": 195055,
+      "conversions": 26670,
+      "attributions": 14691,
+      "day": 22
+    },
+    {
+      "impressions": 506792,
+      "clicks": 186589,
+      "conversions": 24502,
+      "attributions": 13552,
+      "day": 23
+    },
+    {
+      "impressions": 436408,
+      "clicks": 164916,
+      "conversions": 20985,
+      "attributions": 11427,
+      "day": 24
+    },
+    {
+      "impressions": 507128,
+      "clicks": 188189,
+      "conversions": 22961,
+      "attributions": 12805,
+      "day": 25
+    },
+    {
+      "impressions": 581336,
+      "clicks": 206145,
+      "conversions": 26962,
+      "attributions": 14516,
+      "day": 26
+    },
+    {
+      "impressions": 518487,
+      "clicks": 185940,
+      "conversions": 24987,
+      "attributions": 13518,
+      "day": 27
+    },
+    {
+      "impressions": 459375,
+      "clicks": 168527,
+      "conversions": 22883,
+      "attributions": 12542,
+      "day": 28
+    },
+    {
+      "impressions": 493827,
+      "clicks": 185143,
+      "conversions": 25252,
+      "attributions": 13956,
+      "day": 29
+    },
+    {
+      "impressions": 468451,
+      "clicks": 176695,
+      "conversions": 23741,
+      "attributions": 13008,
+      "day": 30
+    }
+  ],
+  "hourlyTrend": [
+    {
+      "impressions": 133446,
+      "clicks": 50220,
+      "conversions": 6605,
+      "attributions": 3786,
+      "hour": 0
+    },
+    {
+      "impressions": 92152,
+      "clicks": 34645,
+      "conversions": 4647,
+      "attributions": 2600,
+      "hour": 1
+    },
+    {
+      "impressions": 88241,
+      "clicks": 33585,
+      "conversions": 4440,
+      "attributions": 2466,
+      "hour": 2
+    },
+    {
+      "impressions": 122340,
+      "clicks": 46956,
+      "conversions": 6213,
+      "attributions": 3418,
+      "hour": 3
+    },
+    {
+      "impressions": 207292,
+      "clicks": 79274,
+      "conversions": 10806,
+      "attributions": 5809,
+      "hour": 4
+    },
+    {
+      "impressions": 383505,
+      "clicks": 144674,
+      "conversions": 20194,
+      "attributions": 10802,
+      "hour": 5
+    },
+    {
+      "impressions": 597175,
+      "clicks": 223876,
+      "conversions": 31877,
+      "attributions": 17147,
+      "hour": 6
+    },
+    {
+      "impressions": 770185,
+      "clicks": 281992,
+      "conversions": 41127,
+      "attributions": 22383,
+      "hour": 7
+    },
+    {
+      "impressions": 872842,
+      "clicks": 312824,
+      "conversions": 45839,
+      "attributions": 25190,
+      "hour": 8
+    },
+    {
+      "impressions": 894359,
+      "clicks": 317631,
+      "conversions": 46115,
+      "attributions": 25341,
+      "hour": 9
+    },
+    {
+      "impressions": 904946,
+      "clicks": 318239,
+      "conversions": 46053,
+      "attributions": 25378,
+      "hour": 10
+    },
+    {
+      "impressions": 914019,
+      "clicks": 317808,
+      "conversions": 45446,
+      "attributions": 25125,
+      "hour": 11
+    },
+    {
+      "impressions": 919171,
+      "clicks": 326731,
+      "conversions": 45428,
+      "attributions": 24906,
+      "hour": 12
+    },
+    {
+      "impressions": 918108,
+      "clicks": 326714,
+      "conversions": 44680,
+      "attributions": 24558,
+      "hour": 13
+    },
+    {
+      "impressions": 906935,
+      "clicks": 323227,
+      "conversions": 44337,
+      "attributions": 24322,
+      "hour": 14
+    },
+    {
+      "impressions": 923580,
+      "clicks": 329912,
+      "conversions": 44453,
+      "attributions": 24317,
+      "hour": 15
+    },
+    {
+      "impressions": 995428,
+      "clicks": 357293,
+      "conversions": 47445,
+      "attributions": 26098,
+      "hour": 16
+    },
+    {
+      "impressions": 1049661,
+      "clicks": 377933,
+      "conversions": 49258,
+      "attributions": 26815,
+      "hour": 17
+    },
+    {
+      "impressions": 1090814,
+      "clicks": 395847,
+      "conversions": 51170,
+      "attributions": 27920,
+      "hour": 18
+    },
+    {
+      "impressions": 1106281,
+      "clicks": 401541,
+      "conversions": 50782,
+      "attributions": 27836,
+      "hour": 19
+    },
+    {
+      "impressions": 1022586,
+      "clicks": 373050,
+      "conversions": 46217,
+      "attributions": 25434,
+      "hour": 20
+    },
+    {
+      "impressions": 803042,
+      "clicks": 295367,
+      "conversions": 37309,
+      "attributions": 20666,
+      "hour": 21
+    },
+    {
+      "impressions": 503580,
+      "clicks": 185903,
+      "conversions": 23677,
+      "attributions": 13213,
+      "hour": 22
+    },
+    {
+      "impressions": 248339,
+      "clicks": 92321,
+      "conversions": 12078,
+      "attributions": 6894,
+      "hour": 23
+    }
+  ]
+}
