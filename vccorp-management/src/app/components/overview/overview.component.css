@@ -1,7 +1,7 @@
 .overview-container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 /* Loading & Error Styles */
@@ -191,7 +191,7 @@
 }
 
 .daily-trend-panel, .hourly-trend-panel, .share-donut-panel, .stats-mini-panel {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .chart-wrapper {
