@@ -1,2 +1,2 @@
-export const API_URL = 'http://localhost:3000';
-// export const API_URL = 'https://vccorp-backend.vercel.app';
+// export const API_URL = 'http://localhost:3000';
+export const API_URL = 'https://vccorp-backend.vercel.app';
